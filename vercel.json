@@ -1,0 +1,4 @@
+{
+  "framework": "nextjs",
+  "installCommand": "yarn install --network-timeout 600000"
+}

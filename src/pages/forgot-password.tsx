@@ -9,8 +9,15 @@ type ForgotMail = {
   email: string;
 };
 
+const emailPattern =
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
 const ForgotPassword = () => {
-  const { register, handleSubmit, errors } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ForgotMail>();
   const [apiError, setApiError] = useState<string | null>(null);
   const [apiMessage, setApiMessage] = useState<string | null>(null);
 
@@ -72,21 +79,19 @@ const ForgotPassword = () => {
                   className="form__input"
                   placeholder="Email"
                   type="text"
-                  name="email"
-                  ref={register({
+                  {...register("email", {
                     required: true,
-                    pattern:
-                      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                    pattern: emailPattern,
                   })}
                 />
 
-                {errors.email && errors.email.type === "required" && (
+                {errors.email?.type === "required" && (
                   <p className="message message--error">
                     Vui lòng nhập trường này
                   </p>
                 )}
 
-                {errors.email && errors.email.type === "pattern" && (
+                {errors.email?.type === "pattern" && (
                   <p className="message message--error">
                     Vui lòng nhập email hợp lệ
                   </p>

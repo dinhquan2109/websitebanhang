@@ -10,10 +10,18 @@ type RegisterForm = {
   lastName: string;
   email: string;
   password: string;
+  terms: boolean;
 };
 
+const emailPattern =
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
 const RegisterPage = () => {
-  const { register, handleSubmit, errors } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterForm>();
   const [apiError, setApiError] = useState<string | null>(null);
   const [apiSuccess, setApiSuccess] = useState<string | null>(null);
 
@@ -81,8 +89,7 @@ const RegisterPage = () => {
                   className="form__input"
                   placeholder="Họ"
                   type="text"
-                  name="lastName"
-                  ref={register({ required: true })}
+                  {...register("lastName", { required: true })}
                 />
                 {errors.lastName && (
                   <p className="message message--error">
@@ -96,8 +103,7 @@ const RegisterPage = () => {
                   className="form__input"
                   placeholder="Tên"
                   type="text"
-                  name="firstName"
-                  ref={register({ required: true })}
+                  {...register("firstName", { required: true })}
                 />
                 {errors.firstName && (
                   <p className="message message--error">
@@ -111,19 +117,17 @@ const RegisterPage = () => {
                   className="form__input"
                   placeholder="Email"
                   type="text"
-                  name="email"
-                  ref={register({
+                  {...register("email", {
                     required: true,
-                    pattern:
-                      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                    pattern: emailPattern,
                   })}
                 />
-                {errors.email && errors.email.type === "required" && (
+                {errors.email?.type === "required" && (
                   <p className="message message--error">
                     Vui lòng nhập trường này
                   </p>
                 )}
-                {errors.email && errors.email.type === "pattern" && (
+                {errors.email?.type === "pattern" && (
                   <p className="message message--error">
                     Vui lòng nhập email hợp lệ
                   </p>
@@ -135,15 +139,14 @@ const RegisterPage = () => {
                   className="form__input"
                   type="password"
                   placeholder="Mật khẩu"
-                  name="password"
-                  ref={register({ required: true, minLength: 6 })}
+                  {...register("password", { required: true, minLength: 6 })}
                 />
-                {errors.password && errors.password.type === "required" && (
+                {errors.password?.type === "required" && (
                   <p className="message message--error">
                     Vui lòng nhập trường này
                   </p>
                 )}
-                {errors.password && errors.password.type === "minLength" && (
+                {errors.password?.type === "minLength" && (
                   <p className="message message--error">
                     Mật khẩu tối thiểu 6 ký tự
                   </p>
@@ -157,10 +160,9 @@ const RegisterPage = () => {
                     className="checkbox checkbox--sm"
                   >
                     <input
-                      name="terms"
                       type="checkbox"
                       id="check-signed-in"
-                      ref={register({ required: true })}
+                      {...register("terms", { required: true })}
                     />
                     <span className="checkbox__check" />
                     <p>Tôi đồng ý với điều khoản và chính sách bảo mật</p>
