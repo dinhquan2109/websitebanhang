@@ -11,22 +11,18 @@ const Description = ({ show }: ProductDescriptionType) => {
     <section style={style} className="product-single__description">
       <div className="product-description-block">
         <i className="icon-cart" />
-        <h4>Details and product description</h4>
+        <h4>Chi tiết & mô tả sản phẩm</h4>
         <p>
-          White Summer Vibes T-shirt in the uiKit line with a colorful print.{" "}
-          <br />
-          Made of jersey cotton. T-shirt fits perfectly with jeans, pants or
-          shorts.
+          Áo thun Summer Vibes dòng uiKit với họa tiết nổi bật. <br />
+          Chất liệu cotton jersey, dễ phối cùng quần jean, kaki hoặc short.
         </p>
       </div>
       <div className="product-description-block">
         <i className="icon-cart" />
-        <h4>Details and product description</h4>
+        <h4>Chi tiết & mô tả sản phẩm</h4>
         <p>
-          White Summer Vibes T-shirt in the uiKit line with a colorful print.{" "}
-          <br />
-          Made of jersey cotton. T-shirt fits perfectly with jeans, pants or
-          shorts.
+          Áo thun Summer Vibes dòng uiKit với họa tiết nổi bật. <br />
+          Chất liệu cotton jersey, dễ phối cùng quần jean, kaki hoặc short.
         </p>
       </div>
     </section>

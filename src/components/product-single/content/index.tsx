@@ -62,11 +62,11 @@ const Content = ({ product }: ProductContent) => {
     <section className="product-content">
       <div className="product-content__intro">
         <h5 className="product__id">
-          Product ID:
+          Mã sản phẩm:
           <br />
           {product.id}
         </h5>
-        <span className="product-on-sale">Sale</span>
+        <span className="product-on-sale">Giảm giá</span>
         <h2 className="product__name">{product.name}</h2>
 
         <div className="product__prices">
@@ -77,7 +77,7 @@ const Content = ({ product }: ProductContent) => {
 
       <div className="product-content__filters">
         <div className="product-filter-item">
-          <h5>Color:</h5>
+          <h5>Màu:</h5>
           <div className="checkbox-color-wrapper">
             {productsColors.map((type) => (
               <CheckboxColor
@@ -93,12 +93,12 @@ const Content = ({ product }: ProductContent) => {
         </div>
         <div className="product-filter-item">
           <h5>
-            Size: <strong>See size table</strong>
+            Cỡ: <strong>Xem bảng cỡ</strong>
           </h5>
           <div className="checkbox-color-wrapper">
             <div className="select-wrapper">
               <select onChange={onSelectChange}>
-                <option>Choose size</option>
+                <option>Chọn cỡ</option>
                 {productsSizes.map((type) => (
                   <option key={type.id} value={type.label}>
                     {type.label}
@@ -109,7 +109,7 @@ const Content = ({ product }: ProductContent) => {
           </div>
         </div>
         <div className="product-filter-item">
-          <h5>Quantity:</h5>
+          <h5>Số lượng:</h5>
           <div className="quantity-buttons">
             <div className="quantity-button">
               <button
@@ -134,7 +134,7 @@ const Content = ({ product }: ProductContent) => {
               onClick={() => addToCart()}
               className="btn btn--rounded btn--yellow"
             >
-              Add to cart
+              Thêm vào giỏ
             </button>
             <button
               type="button"

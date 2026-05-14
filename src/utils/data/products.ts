@@ -1,11 +1,11 @@
 export const products = [
   {
     id: "1",
-    name: "T-Shirt Summer Vibes",
+    name: "Áo thun Summer Vibes",
     price: 119.99,
     discount: 30,
     quantityAvailable: 2,
-    category: "T-shirt",
+    category: "Áo thun",
     currentPrice: 89.99,
     sizes: ["xl", "l"],
     colors: ["#000", "6F3E18", "#D4BE8D", "#FFF"],
@@ -38,34 +38,34 @@ export const products = [
     },
     reviews: [
       {
-        name: "John Doe",
+        name: "Khách hàng",
         avatar: "/images/featured-1.jpg",
         description:
-          "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s</p>",
+          "<p>Chất liệu cotton thoáng mát, form vừa vặn. Phù hợp mặc hằng ngày hoặc đi chơi.</p>",
         punctuation: 2,
       },
       {
-        name: "John Doe",
+        name: "Khách hàng",
         avatar: "/images/featured-1.jpg",
         description:
-          "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s</p>",
+          "<p>Chất liệu cotton thoáng mát, form vừa vặn. Phù hợp mặc hằng ngày hoặc đi chơi.</p>",
         punctuation: 4,
       },
       {
-        name: "John Doe",
+        name: "Khách hàng",
         avatar: "/images/featured-1.jpg",
         description:
-          "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s</p>",
+          "<p>Chất liệu cotton thoáng mát, form vừa vặn. Phù hợp mặc hằng ngày hoặc đi chơi.</p>",
         punctuation: 5,
       },
     ],
   },
   {
     id: "2",
-    name: "T-Shirt Summer Vibes",
+    name: "Áo thun Summer Vibes",
     price: 119.99,
     quantityAvailable: 2,
-    category: "T-shirt",
+    category: "Áo thun",
     currentPrice: 89.99,
     sizes: ["xl", "l"],
     colors: ["#000", "6F3E18", "#D4BE8D", "#FFF"],
@@ -98,34 +98,34 @@ export const products = [
     },
     reviews: [
       {
-        name: "John Doe",
+        name: "Khách hàng",
         avatar: "/images/featured-1.jpg",
         description:
-          "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s</p>",
+          "<p>Chất liệu cotton thoáng mát, form vừa vặn. Phù hợp mặc hằng ngày hoặc đi chơi.</p>",
         punctuation: 2,
       },
       {
-        name: "John Doe",
+        name: "Khách hàng",
         avatar: "/images/featured-1.jpg",
         description:
-          "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s</p>",
+          "<p>Chất liệu cotton thoáng mát, form vừa vặn. Phù hợp mặc hằng ngày hoặc đi chơi.</p>",
         punctuation: 4,
       },
       {
-        name: "John Doe",
+        name: "Khách hàng",
         avatar: "/images/featured-1.jpg",
         description:
-          "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s</p>",
+          "<p>Chất liệu cotton thoáng mát, form vừa vặn. Phù hợp mặc hằng ngày hoặc đi chơi.</p>",
         punctuation: 5,
       },
     ],
   },
   {
     id: "3",
-    name: "T-Shirt Summer Vibes",
+    name: "Áo thun Summer Vibes",
     price: 119.99,
     quantityAvailable: 2,
-    category: "T-shirt",
+    category: "Áo thun",
     currentPrice: 89.99,
     sizes: ["xl", "l"],
     colors: ["#000", "6F3E18", "#D4BE8D", "#FFF"],
@@ -158,34 +158,34 @@ export const products = [
     },
     reviews: [
       {
-        name: "John Doe",
+        name: "Khách hàng",
         avatar: "/images/featured-1.jpg",
         description:
-          "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s</p>",
+          "<p>Chất liệu cotton thoáng mát, form vừa vặn. Phù hợp mặc hằng ngày hoặc đi chơi.</p>",
         punctuation: 2,
       },
       {
-        name: "John Doe",
+        name: "Khách hàng",
         avatar: "/images/featured-1.jpg",
         description:
-          "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s</p>",
+          "<p>Chất liệu cotton thoáng mát, form vừa vặn. Phù hợp mặc hằng ngày hoặc đi chơi.</p>",
         punctuation: 4,
       },
       {
-        name: "John Doe",
+        name: "Khách hàng",
         avatar: "/images/featured-1.jpg",
         description:
-          "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s</p>",
+          "<p>Chất liệu cotton thoáng mát, form vừa vặn. Phù hợp mặc hằng ngày hoặc đi chơi.</p>",
         punctuation: 5,
       },
     ],
   },
   {
     id: "4",
-    name: "T-Shirt Summer Vibes",
+    name: "Áo thun Summer Vibes",
     price: 119.99,
     quantityAvailable: 2,
-    category: "T-shirt",
+    category: "Áo thun",
     currentPrice: 89.99,
     sizes: ["xl", "l"],
     colors: ["#000", "6F3E18", "#D4BE8D", "#FFF"],
@@ -218,34 +218,34 @@ export const products = [
     },
     reviews: [
       {
-        name: "John Doe",
+        name: "Khách hàng",
         avatar: "/images/featured-1.jpg",
         description:
-          "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s</p>",
+          "<p>Chất liệu cotton thoáng mát, form vừa vặn. Phù hợp mặc hằng ngày hoặc đi chơi.</p>",
         punctuation: 2,
       },
       {
-        name: "John Doe",
+        name: "Khách hàng",
         avatar: "/images/featured-1.jpg",
         description:
-          "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s</p>",
+          "<p>Chất liệu cotton thoáng mát, form vừa vặn. Phù hợp mặc hằng ngày hoặc đi chơi.</p>",
         punctuation: 4,
       },
       {
-        name: "John Doe",
+        name: "Khách hàng",
         avatar: "/images/featured-1.jpg",
         description:
-          "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s</p>",
+          "<p>Chất liệu cotton thoáng mát, form vừa vặn. Phù hợp mặc hằng ngày hoặc đi chơi.</p>",
         punctuation: 5,
       },
     ],
   },
   {
     id: "5",
-    name: "T-Shirt Summer Vibes",
+    name: "Áo thun Summer Vibes",
     price: 119.99,
     quantityAvailable: 2,
-    category: "T-shirt",
+    category: "Áo thun",
     currentPrice: 89.99,
     sizes: ["xl", "l"],
     colors: ["#000", "6F3E18", "#D4BE8D", "#FFF"],
@@ -278,35 +278,35 @@ export const products = [
     },
     reviews: [
       {
-        name: "John Doe",
+        name: "Khách hàng",
         avatar: "/images/featured-1.jpg",
         description:
-          "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s</p>",
+          "<p>Chất liệu cotton thoáng mát, form vừa vặn. Phù hợp mặc hằng ngày hoặc đi chơi.</p>",
         punctuation: 2,
       },
       {
-        name: "John Doe",
+        name: "Khách hàng",
         avatar: "/images/featured-1.jpg",
         description:
-          "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s</p>",
+          "<p>Chất liệu cotton thoáng mát, form vừa vặn. Phù hợp mặc hằng ngày hoặc đi chơi.</p>",
         punctuation: 4,
       },
       {
-        name: "John Doe",
+        name: "Khách hàng",
         avatar: "/images/featured-1.jpg",
         description:
-          "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s</p>",
+          "<p>Chất liệu cotton thoáng mát, form vừa vặn. Phù hợp mặc hằng ngày hoặc đi chơi.</p>",
         punctuation: 5,
       },
     ],
   },
   {
     id: "6",
-    name: "T-Shirt Summer Vibes",
+    name: "Áo thun Summer Vibes",
     price: 119.99,
     discount: 30,
     quantityAvailable: 2,
-    category: "T-shirt",
+    category: "Áo thun",
     currentPrice: 89.99,
     sizes: ["xl", "l"],
     colors: ["#000", "6F3E18", "#D4BE8D", "#FFF"],
@@ -339,24 +339,24 @@ export const products = [
     },
     reviews: [
       {
-        name: "John Doe",
+        name: "Khách hàng",
         avatar: "/images/featured-1.jpg",
         description:
-          "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s</p>",
+          "<p>Chất liệu cotton thoáng mát, form vừa vặn. Phù hợp mặc hằng ngày hoặc đi chơi.</p>",
         punctuation: 2,
       },
       {
-        name: "John Doe",
+        name: "Khách hàng",
         avatar: "/images/featured-1.jpg",
         description:
-          "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s</p>",
+          "<p>Chất liệu cotton thoáng mát, form vừa vặn. Phù hợp mặc hằng ngày hoặc đi chơi.</p>",
         punctuation: 4,
       },
       {
-        name: "John Doe",
+        name: "Khách hàng",
         avatar: "/images/featured-1.jpg",
         description:
-          "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s</p>",
+          "<p>Chất liệu cotton thoáng mát, form vừa vặn. Phù hợp mặc hằng ngày hoặc đi chơi.</p>",
         punctuation: 5,
       },
     ],

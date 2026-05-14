@@ -1,32 +1,32 @@
 export const productsColors = [
   {
     id: "1",
-    label: "Black",
+    label: "Đen",
     color: "#000000",
   },
   {
     id: "2",
-    label: "Brown",
+    label: "Nâu",
     color: "#6F3E18",
   },
   {
     id: "3",
-    label: "Yellow",
+    label: "Vàng",
     color: "#D4BE8D",
   },
   {
     id: "4",
-    label: "Gray",
+    label: "Xám",
     color: "#838383",
   },
   {
     id: "5",
-    label: "White",
+    label: "Trắng",
     color: "#F3F3F3",
   },
   {
     id: "6",
-    label: "Blue",
+    label: "Xanh dương",
     color: "#0F73AD",
   },
 ];

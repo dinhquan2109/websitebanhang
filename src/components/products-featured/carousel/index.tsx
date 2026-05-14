@@ -22,11 +22,11 @@ if (process.browser) {
 }
 
 type ProductsCarouselType = {
-  products: ProductTypeList[];
+  products?: ProductTypeList[];
 };
 
 const ProductsCarousel = ({ products }: ProductsCarouselType) => {
-  if (!products) return <div>Loading</div>;
+  if (!products) return <div>Đang tải...</div>;
 
   return (
     <div className="products-carousel">

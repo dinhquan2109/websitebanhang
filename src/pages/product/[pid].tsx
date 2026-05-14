@@ -12,15 +12,19 @@ import ProductsFeatured from "@/components/products-featured";
 import type { ProductType } from "@/types";
 
 import Layout from "../../layouts/Main";
-import { server } from "../../utils/server";
+import { getApiBaseFromRequest } from "../../utils/server";
 
 type ProductPageType = {
   product: ProductType;
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  query,
+  req,
+}) => {
   const { pid } = query;
-  const res = await fetch(`${server}/api/product/${pid}`);
+  const base = getApiBaseFromRequest(req);
+  const res = await fetch(`${base}/api/product/${pid}`);
   const product = await res.json();
 
   return {
@@ -51,14 +55,14 @@ const Product = ({ product }: ProductPageType) => {
                 onClick={() => setShowBlock("description")}
                 className={`btn btn--rounded ${showBlock === "description" ? "btn--active" : ""}`}
               >
-                Description
+                Mô tả
               </button>
               <button
                 type="button"
                 onClick={() => setShowBlock("reviews")}
                 className={`btn btn--rounded ${showBlock === "reviews" ? "btn--active" : ""}`}
               >
-                Reviews (2)
+                Đánh giá ({product.reviews.length})
               </button>
             </div>
 

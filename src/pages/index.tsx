@@ -17,9 +17,9 @@ const IndexPage = () => {
             className="featured-item featured-item-large"
           >
             <div className="featured-item__content">
-              <h3>New arrivals are now in!</h3>
+              <h3>Hàng mới đã có mặt!</h3>
               <a href="#" className="btn btn--rounded">
-                Show Collection
+                Xem bộ sưu tập
               </a>
             </div>
           </article>
@@ -29,9 +29,9 @@ const IndexPage = () => {
             className="featured-item featured-item-small-first"
           >
             <div className="featured-item__content">
-              <h3>Basic t-shirts $29,99</h3>
+              <h3>Áo thun cơ bản $29,99</h3>
               <a href="#" className="btn btn--rounded">
-                More details
+                Chi tiết
               </a>
             </div>
           </article>
@@ -41,9 +41,9 @@ const IndexPage = () => {
             className="featured-item featured-item-small"
           >
             <div className="featured-item__content">
-              <h3>Sale this summer</h3>
+              <h3>Khuyến mãi mùa hè</h3>
               <a href="#" className="btn btn--rounded">
-                VIEW ALL
+                Xem tất cả
               </a>
             </div>
           </article>
@@ -53,17 +53,17 @@ const IndexPage = () => {
       <section className="section">
         <div className="container">
           <header className="section__intro">
-            <h4>Why should you choose us?</h4>
+            <h4>Vì sao nên chọn chúng tôi?</h4>
           </header>
 
           <ul className="shop-data-items">
             <li>
               <i className="icon-shipping" />
               <div className="data-item__content">
-                <h4>Free Shipping</h4>
+                <h4>Miễn phí vận chuyển</h4>
                 <p>
-                  All purchases over $199 are eligible for free shipping via
-                  USPS First Class Mail.
+                  Đơn từ $199 trở lên được miễn phí giao hàng qua bưu điện nội
+                  địa.
                 </p>
               </div>
             </li>
@@ -71,10 +71,10 @@ const IndexPage = () => {
             <li>
               <i className="icon-payment" />
               <div className="data-item__content">
-                <h4>Easy Payments</h4>
+                <h4>Thanh toán dễ dàng</h4>
                 <p>
-                  All payments are processed instantly over a secure payment
-                  protocol.
+                  Mọi giao dịch đều được xử lý nhanh qua kênh thanh toán an
+                  toàn.
                 </p>
               </div>
             </li>
@@ -82,10 +82,10 @@ const IndexPage = () => {
             <li>
               <i className="icon-cash" />
               <div className="data-item__content">
-                <h4>Money-Back Guarantee</h4>
+                <h4>Hoàn tiền</h4>
                 <p>
-                  If an item arrived damaged or you've changed your mind, you
-                  can send it back for a full refund.
+                  Nếu sản phẩm bị lỗi hoặc bạn đổi ý, có thể gửi trả và nhận
+                  hoàn tiền theo chính sách.
                 </p>
               </div>
             </li>
@@ -93,11 +93,8 @@ const IndexPage = () => {
             <li>
               <i className="icon-materials" />
               <div className="data-item__content">
-                <h4>Finest Quality</h4>
-                <p>
-                  Designed to last, each of our products has been crafted with
-                  the finest materials.
-                </p>
+                <h4>Chất lượng cao</h4>
+                <p>Mỗi sản phẩm được chọn lọc chất liệu và hoàn thiện tỉ mỉ.</p>
               </div>
             </li>
           </ul>

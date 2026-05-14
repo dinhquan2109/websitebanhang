@@ -1,5 +1,5 @@
 // function to post data
-export async function postData(url = "", data = {}) {
+export async function postData<T = unknown>(url = "", data = {}) {
   const response = await fetch(url, {
     method: "POST",
     mode: "cors",
@@ -12,5 +12,5 @@ export async function postData(url = "", data = {}) {
     referrerPolicy: "no-referrer",
     body: JSON.stringify(data),
   });
-  return response.json();
+  return response.json() as Promise<T>;
 }

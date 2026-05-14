@@ -1,8 +1,9 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import Layout from "../layouts/Main";
-import { server } from "../utils/server";
 import { postData } from "../utils/services";
 
 type LoginMail = {
@@ -11,13 +12,28 @@ type LoginMail = {
 };
 
 const LoginPage = () => {
+  const router = useRouter();
+  const [apiError, setApiError] = useState<string | null>(null);
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = async (data: LoginMail) => {
-    await postData(`${server}/api/login`, {
-      email: data.email,
-      password: data.password,
-    });
+    setApiError(null);
+    const result = await postData<{ status?: boolean; error?: string }>(
+      "/api/login",
+      {
+        email: data.email,
+        password: data.password,
+      },
+    );
+    if (result.status) {
+      await router.push("/products");
+      return;
+    }
+    setApiError(
+      typeof result.error === "string"
+        ? result.error
+        : "Đăng nhập thất bại. Kiểm tra email và mật khẩu.",
+    );
   };
 
   return (
@@ -27,23 +43,27 @@ const LoginPage = () => {
           <div className="back-button-section">
             <Link href="/products">
               <i className="icon-left" />
-              Back to store
+              Quay lại cửa hàng
             </Link>
           </div>
 
           <div className="form-block">
-            <h2 className="form-block__title">Log in</h2>
+            <h2 className="form-block__title">Đăng nhập</h2>
             <p className="form-block__description">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s
+              Đăng nhập bằng tài khoản Supabase Auth của bạn. Tạo tài khoản
+              trong Supabase (Authentication) hoặc qua trang đăng ký.
             </p>
 
             <form className="form" onSubmit={handleSubmit(onSubmit)}>
+              {apiError && (
+                <p className="message message--error" role="alert">
+                  {apiError}
+                </p>
+              )}
               <div className="form__input-row">
                 <input
                   className="form__input"
-                  placeholder="email"
+                  placeholder="Email"
                   type="text"
                   name="email"
                   ref={register({
@@ -55,13 +75,13 @@ const LoginPage = () => {
 
                 {errors.email && errors.email.type === "required" && (
                   <p className="message message--error">
-                    This field is required
+                    Vui lòng nhập trường này
                   </p>
                 )}
 
                 {errors.email && errors.email.type === "pattern" && (
                   <p className="message message--error">
-                    Please write a valid email
+                    Vui lòng nhập email hợp lệ
                   </p>
                 )}
               </div>
@@ -70,13 +90,13 @@ const LoginPage = () => {
                 <input
                   className="form__input"
                   type="password"
-                  placeholder="Password"
+                  placeholder="Mật khẩu"
                   name="password"
                   ref={register({ required: true })}
                 />
                 {errors.password && errors.password.type === "required" && (
                   <p className="message message--error">
-                    This field is required
+                    Vui lòng nhập trường này
                   </p>
                 )}
               </div>
@@ -94,14 +114,14 @@ const LoginPage = () => {
                       ref={register({ required: false })}
                     />
                     <span className="checkbox__check" />
-                    <p>Keep me signed in</p>
+                    <p>Duy trì đăng nhập</p>
                   </label>
                 </div>
                 <Link
                   href="/forgot-password"
                   className="form__info__forgot-password"
                 >
-                  Forgot password?
+                  Quên mật khẩu?
                 </Link>
               </div>
 
@@ -111,7 +131,7 @@ const LoginPage = () => {
                   Facebook
                 </button>
                 <button type="button" className="btn-social google-btn">
-                  <img src="/images/icons/gmail.svg" alt="gmail" /> Gmail
+                  <img src="/images/icons/gmail.svg" alt="Gmail" /> Gmail
                 </button>
               </div>
 
@@ -119,11 +139,11 @@ const LoginPage = () => {
                 type="submit"
                 className="btn btn--rounded btn--yellow btn-submit"
               >
-                Sign in
+                Đăng nhập
               </button>
 
               <p className="form__signup-link">
-                Not a member yet? <Link href="/register">Sign up</Link>
+                Chưa có tài khoản? <Link href="/register">Đăng ký</Link>
               </p>
             </form>
           </div>

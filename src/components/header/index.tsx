@@ -42,6 +42,7 @@ const Header = ({ isErrorPage }: HeaderType) => {
     window.onscroll = function () {
       headerClass();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- chỉ gắn scroll trên trang chủ
   }, []);
 
   const closeMenu = () => {
@@ -69,11 +70,11 @@ const Header = ({ isErrorPage }: HeaderType) => {
           ref={navRef}
           className={`site-nav ${menuOpen ? "site-nav--open" : ""}`}
         >
-          <Link href="/products">Products</Link>
-          <a href="#">Inspiration</a>
-          <a href="#">Rooms</a>
+          <Link href="/products">Sản phẩm</Link>
+          <a href="#">Cảm hứng</a>
+          <a href="#">Không gian</a>
           <button className="site-nav__btn">
-            <p>Account</p>
+            <p>Tài khoản</p>
           </button>
         </nav>
 
@@ -90,7 +91,7 @@ const Header = ({ isErrorPage }: HeaderType) => {
               <input
                 type="text"
                 name="search"
-                placeholder="Enter the product you are looking for"
+                placeholder="Nhập tên sản phẩm bạn cần tìm"
               />
             </form>
             <i

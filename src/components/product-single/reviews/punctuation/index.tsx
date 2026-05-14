@@ -18,7 +18,7 @@ const Punctuation = ({
         <Rater total={5} interactive={false} rating={punctuation} />
         <p>
           <i className="icon-avatar" />
-          {countOpinions} all opinions
+          {countOpinions} đánh giá
         </p>
       </div>
 
@@ -41,7 +41,7 @@ const Punctuation = ({
 
       <div className="punctuation-btn-wrapper">
         <button type="button" className="btn btn--rounded btn--yellow">
-          Add opinion
+          Thêm đánh giá
         </button>
       </div>
     </section>

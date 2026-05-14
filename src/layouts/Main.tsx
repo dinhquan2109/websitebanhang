@@ -8,7 +8,10 @@ type LayoutType = {
   children?: React.ReactNode;
 };
 
-const MainLayout = ({ children, title = "Next.js Ecommerce" }: LayoutType) => {
+const MainLayout = ({
+  children,
+  title = "E-Shop — Thương mại điện tử",
+}: LayoutType) => {
   const router = useRouter();
   const pathname = router.pathname;
 

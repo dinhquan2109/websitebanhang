@@ -1,5 +1,11 @@
-const dev = process.env.NODE_ENV !== "production";
+import type { IncomingMessage } from "http";
 
-export const server = dev
-  ? "http://localhost:3000"
-  : "https://next-ecommerce-front.vercel.app";
+/**
+ * Gốc URL nội bộ cho getServerSideProps (gọi API cùng host, hoạt động trên Vercel).
+ */
+export function getApiBaseFromRequest(req: IncomingMessage): string {
+  const host = req.headers.host ?? "localhost:3000";
+  const forwarded = req.headers["x-forwarded-proto"] as string | undefined;
+  const proto = forwarded ?? (host.startsWith("localhost") ? "http" : "https");
+  return `${proto}://${host}`;
+}

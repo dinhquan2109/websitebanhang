@@ -1,8 +1,8 @@
 import Link from "next/link";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import Layout from "../layouts/Main";
-import { server } from "../utils/server";
 import { postData } from "../utils/services";
 
 type ForgotMail = {
@@ -11,11 +11,31 @@ type ForgotMail = {
 
 const ForgotPassword = () => {
   const { register, handleSubmit, errors } = useForm();
+  const [apiError, setApiError] = useState<string | null>(null);
+  const [apiMessage, setApiMessage] = useState<string | null>(null);
 
   const onSubmit = async (data: ForgotMail) => {
-    await postData(`${server}/api/login`, {
+    setApiError(null);
+    setApiMessage(null);
+    const result = await postData<{
+      status?: boolean;
+      error?: string;
+      message?: string;
+    }>("/api/forgot-password", {
       email: data.email,
     });
+    if (result.status) {
+      setApiMessage(
+        result.message ??
+          "Nếu email tồn tại, bạn sẽ nhận được hướng dẫn đặt lại mật khẩu.",
+      );
+      return;
+    }
+    setApiError(
+      typeof result.error === "string"
+        ? result.error
+        : "Không gửi được yêu cầu. Thử lại sau.",
+    );
   };
 
   return (
@@ -25,21 +45,32 @@ const ForgotPassword = () => {
           <div className="back-button-section">
             <Link href="/products">
               <i className="icon-left" />
-              Back to shop
+              Quay lại cửa hàng
             </Link>
           </div>
 
           <div className="form-block">
-            <h2 className="form-block__title">Forgot your password?</h2>
+            <h2 className="form-block__title">Quên mật khẩu?</h2>
             <p className="form-block__description">
-              Enter your email or phone number and recover your account
+              Nhập email đã đăng ký. Supabase sẽ gửi liên kết đặt lại mật khẩu
+              (cần cấu hình SMTP / mail trong Supabase).
             </p>
 
             <form className="form" onSubmit={handleSubmit(onSubmit)}>
+              {apiError && (
+                <p className="message message--error" role="alert">
+                  {apiError}
+                </p>
+              )}
+              {apiMessage && (
+                <p className="message" role="status">
+                  {apiMessage}
+                </p>
+              )}
               <div className="form__input-row">
                 <input
                   className="form__input"
-                  placeholder="email"
+                  placeholder="Email"
                   type="text"
                   name="email"
                   ref={register({
@@ -51,28 +82,13 @@ const ForgotPassword = () => {
 
                 {errors.email && errors.email.type === "required" && (
                   <p className="message message--error">
-                    This field is required
+                    Vui lòng nhập trường này
                   </p>
                 )}
 
                 {errors.email && errors.email.type === "pattern" && (
                   <p className="message message--error">
-                    Please write a valid email
-                  </p>
-                )}
-              </div>
-
-              <div className="form__input-row">
-                <input
-                  className="form__input"
-                  type="password"
-                  placeholder="Password"
-                  name="password"
-                  ref={register({ required: true })}
-                />
-                {errors.password && errors.password.type === "required" && (
-                  <p className="message message--error">
-                    This field is required
+                    Vui lòng nhập email hợp lệ
                   </p>
                 )}
               </div>
@@ -81,7 +97,7 @@ const ForgotPassword = () => {
                 type="submit"
                 className="btn btn--rounded btn--yellow btn-submit"
               >
-                Reset password
+                Gửi liên kết đặt lại mật khẩu
               </button>
             </form>
           </div>

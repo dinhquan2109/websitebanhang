@@ -24,7 +24,7 @@ export default class CustomDocument extends Document<DocumentProps> {
     const { isProduction } = this.props;
 
     return (
-      <Html lang="en">
+      <Html lang="vi">
         <Head>
           {/* We only want to add the scripts if in production */}
           {isProduction && (

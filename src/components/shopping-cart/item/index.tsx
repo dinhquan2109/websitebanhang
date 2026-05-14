@@ -63,10 +63,10 @@ const ShoppingCart = ({
           </div>
         </div>
       </td>
-      <td className="cart-item-before" data-label="Color">
+      <td className="cart-item-before" data-label="Màu">
         {color}
       </td>
-      <td className="cart-item-before" data-label="Size">
+      <td className="cart-item-before" data-label="Cỡ">
         {size}
       </td>
       <td>

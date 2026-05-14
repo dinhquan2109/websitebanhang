@@ -14,10 +14,10 @@ const PageIntro = () => {
           >
             <div className="container">
               <div className="page-intro__slide__content">
-                <h2>Sale of the summer collection</h2>
+                <h2>Khuyến mãi bộ sưu tập mùa hè</h2>
                 <a href="#" className="btn-shop">
                   <i className="icon-right" />
-                  Shop now
+                  Mua ngay
                 </a>
               </div>
             </div>
@@ -31,10 +31,10 @@ const PageIntro = () => {
           >
             <div className="container">
               <div className="page-intro__slide__content">
-                <h2>Make your house into a home</h2>
+                <h2>Biến nhà thành tổ ấm</h2>
                 <a href="#" className="btn-shop">
                   <i className="icon-right" />
-                  Shop now
+                  Mua ngay
                 </a>
               </div>
             </div>
@@ -48,24 +48,24 @@ const PageIntro = () => {
             <li>
               <i className="icon-shipping" />
               <div className="data-item__content">
-                <h4>Free Shipping</h4>
-                <p>On purchases over $199</p>
+                <h4>Miễn phí vận chuyển</h4>
+                <p>Với đơn từ $199</p>
               </div>
             </li>
 
             <li>
               <i className="icon-shipping" />
               <div className="data-item__content">
-                <h4>99% Satisfied Customers</h4>
-                <p>Our clients' opinions speak for themselves</p>
+                <h4>99% khách hài lòng</h4>
+                <p>Phản hồi tích cực từ cộng đồng</p>
               </div>
             </li>
 
             <li>
               <i className="icon-cash" />
               <div className="data-item__content">
-                <h4>Originality Guaranteed</h4>
-                <p>30 days warranty for each product from our store</p>
+                <h4>Đảm bảo chính hãng</h4>
+                <p>Bảo hành 30 ngày cho từng sản phẩm</p>
               </div>
             </li>
           </ul>

@@ -10,8 +10,8 @@ const Footer = () => {
               <Logo /> <span>E</span>-Shop
             </h6>
             <p>
-              House My Brand designs clothing for the young, the old & everyone
-              in between – but most importantly, for the fashionable
+              E-Shop thiết kế thời trang cho mọi lứa tuổi — hướng tới phong cách
+              hiện đại và trải nghiệm mua sắm tiện lợi.
             </p>
             <ul className="site-footer__social-networks">
               <li>
@@ -44,48 +44,48 @@ const Footer = () => {
 
           <div className="site-footer__links">
             <ul>
-              <li>Shopping online</li>
+              <li>Mua sắm trực tuyến</li>
               <li>
-                <a href="#">Order Status</a>
+                <a href="#">Trạng thái đơn hàng</a>
               </li>
               <li>
-                <a href="#">Shipping and Delivery</a>
+                <a href="#">Giao hàng</a>
               </li>
               <li>
-                <a href="#">Returns</a>
+                <a href="#">Đổi trả</a>
               </li>
               <li>
-                <a href="#">Payment options</a>
+                <a href="#">Phương thức thanh toán</a>
               </li>
               <li>
-                <a href="#">Contact Us</a>
-              </li>
-            </ul>
-            <ul>
-              <li>Information</li>
-              <li>
-                <a href="#">Gift Cards</a>
-              </li>
-              <li>
-                <a href="#">Find a store</a>
-              </li>
-              <li>
-                <a href="#">Newsletter</a>
-              </li>
-              <li>
-                <a href="#">Bacome a member</a>
-              </li>
-              <li>
-                <a href="#">Site feedback</a>
+                <a href="#">Liên hệ</a>
               </li>
             </ul>
             <ul>
-              <li>Contact</li>
+              <li>Thông tin</li>
               <li>
-                <a href="#">store@uikit.com</a>
+                <a href="#">Thẻ quà tặng</a>
               </li>
               <li>
-                <a href="#">Hotline: +1 131 138 138</a>
+                <a href="#">Tìm cửa hàng</a>
+              </li>
+              <li>
+                <a href="#">Bản tin</a>
+              </li>
+              <li>
+                <a href="#">Trở thành thành viên</a>
+              </li>
+              <li>
+                <a href="#">Góp ý website</a>
+              </li>
+            </ul>
+            <ul>
+              <li>Liên hệ</li>
+              <li>
+                <a href="#">hotro@eshop.vn</a>
+              </li>
+              <li>
+                <a href="#">Hotline: 1900 0000</a>
               </li>
             </ul>
           </div>
@@ -94,7 +94,7 @@ const Footer = () => {
 
       <div className="site-footer__bottom">
         <div className="container">
-          <p>DESIGN BY ICEO.CO - © 2019. ALL RIGHTS RESERVED.</p>
+          <p>THIẾT KẾ UI — © 2026. BẢN QUYỀN THUỘC E-SHOP.</p>
         </div>
       </div>
     </footer>

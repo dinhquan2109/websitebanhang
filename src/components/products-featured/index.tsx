@@ -11,9 +11,9 @@ const ProductsFeatured = () => {
     <section className="section section-products-featured">
       <div className="container">
         <header className="section-products-featured__header">
-          <h3>Selected just for you</h3>
+          <h3>Dành riêng cho bạn</h3>
           <Link href="/products" className="btn btn--rounded btn--border">
-            Show All
+            Xem tất cả
           </Link>
         </header>
 
