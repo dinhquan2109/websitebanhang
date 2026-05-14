@@ -1,4 +1,9 @@
 {
   "framework": "nextjs",
-  "installCommand": "yarn install --network-timeout 600000"
+  "installCommand": "yarn install --network-timeout 600000",
+  "build": {
+    "env": {
+      "NODE_OPTIONS": "--max-old-space-size=4096"
+    }
+  }
 }
