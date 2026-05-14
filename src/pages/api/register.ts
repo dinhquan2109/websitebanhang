@@ -23,7 +23,7 @@ export default async function handler(
     return res.status(503).json({
       status: false,
       error:
-        "Chưa cấu hình Supabase. Thêm NEXT_PUBLIC_SUPABASE_URL và NEXT_PUBLIC_SUPABASE_ANON_KEY.",
+        "Chưa cấu hình Supabase. Thêm SUPABASE_URL + SUPABASE_ANON_KEY (hoặc bộ NEXT_PUBLIC_*) rồi redeploy.",
     });
   }
 

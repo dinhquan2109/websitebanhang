@@ -16,7 +16,7 @@ export default async function handler(
     return res.status(503).json({
       status: false,
       error:
-        "Chưa cấu hình Supabase. Thêm NEXT_PUBLIC_SUPABASE_URL và NEXT_PUBLIC_SUPABASE_ANON_KEY trong Vercel / .env.local.",
+        "Chưa cấu hình Supabase. Trên Vercel thêm SUPABASE_URL + SUPABASE_ANON_KEY (hoặc NEXT_PUBLIC_SUPABASE_URL + NEXT_PUBLIC_SUPABASE_ANON_KEY), rồi redeploy.",
     });
   }
 
