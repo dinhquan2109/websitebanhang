@@ -1,6 +1,12 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+
+import { SHOP_NAME } from "@/constants/shop";
+import { setUserSession } from "@/store/reducers/user";
+import { mapSupabaseSession, mapSupabaseUser } from "@/utils/auth";
 
 import Layout from "../layouts/Main";
 import { postData } from "../utils/services";
@@ -16,7 +22,25 @@ type RegisterForm = {
 const emailPattern =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
+type RegisterResponse = {
+  status?: boolean;
+  error?: string;
+  needsEmailConfirmation?: boolean;
+  user?: {
+    id: string;
+    email?: string;
+    user_metadata?: { first_name?: string; last_name?: string };
+  };
+  session?: {
+    access_token: string;
+    refresh_token: string;
+    expires_at?: number;
+  };
+};
+
 const RegisterPage = () => {
+  const router = useRouter();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -28,21 +52,27 @@ const RegisterPage = () => {
   const onSubmit = async (data: RegisterForm) => {
     setApiError(null);
     setApiSuccess(null);
-    const result = await postData<{
-      status?: boolean;
-      error?: string;
-      needsEmailConfirmation?: boolean;
-    }>("/api/register", {
-      email: data.email,
+    const result = await postData<RegisterResponse>("/api/register", {
+      email: data.email.trim(),
       password: data.password,
       firstName: data.firstName,
       lastName: data.lastName,
     });
     if (result.status) {
+      if (result.user && result.session) {
+        dispatch(
+          setUserSession({
+            user: mapSupabaseUser(result.user),
+            session: mapSupabaseSession(result.session),
+          }),
+        );
+        await router.push("/products");
+        return;
+      }
       setApiSuccess(
         result.needsEmailConfirmation
           ? "Đã gửi email xác nhận. Vui lòng kiểm tra hộp thư rồi đăng nhập."
-          : "Đăng ký thành công. Bạn có thể đăng nhập.",
+          : `Đăng ký thành công tại ${SHOP_NAME}. Bạn có thể đăng nhập.`,
       );
       return;
     }

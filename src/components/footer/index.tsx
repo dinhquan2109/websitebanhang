@@ -1,3 +1,10 @@
+import {
+  SHOP_NAME,
+  SHOP_SHORT,
+  SHOP_SUPPORT_EMAIL,
+  SHOP_TAGLINE,
+} from "@/constants/shop";
+
 import Logo from "../../assets/icons/logo";
 
 const Footer = () => {
@@ -7,11 +14,11 @@ const Footer = () => {
         <div className="site-footer__top">
           <div className="site-footer__description">
             <h6>
-              <Logo /> <span>E</span>-Shop
+              <Logo /> {SHOP_NAME}
             </h6>
             <p>
-              E-Shop thiết kế thời trang cho mọi lứa tuổi — hướng tới phong cách
-              hiện đại và trải nghiệm mua sắm tiện lợi.
+              {SHOP_NAME} — {SHOP_TAGLINE}. Thương hiệu demo của Trần Đình Quân,
+              xây dựng bằng Next.js và Supabase.
             </p>
             <ul className="site-footer__social-networks">
               <li>
@@ -82,7 +89,7 @@ const Footer = () => {
             <ul>
               <li>Liên hệ</li>
               <li>
-                <a href="#">hotro@eshop.vn</a>
+                <a href={`mailto:${SHOP_SUPPORT_EMAIL}`}>{SHOP_SUPPORT_EMAIL}</a>
               </li>
               <li>
                 <a href="#">Hotline: 1900 0000</a>
@@ -94,7 +101,9 @@ const Footer = () => {
 
       <div className="site-footer__bottom">
         <div className="container">
-          <p>THIẾT KẾ UI — © 2026. BẢN QUYỀN THUỘC E-SHOP.</p>
+          <p>
+            © 2026 {SHOP_NAME} ({SHOP_SHORT}). Mọi quyền được bảo lưu.
+          </p>
         </div>
       </div>
     </footer>

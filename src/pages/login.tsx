@@ -2,6 +2,11 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+
+import { SHOP_NAME } from "@/constants/shop";
+import { setUserSession } from "@/store/reducers/user";
+import { mapSupabaseSession, mapSupabaseUser } from "@/utils/auth";
 
 import Layout from "../layouts/Main";
 import { postData } from "../utils/services";
@@ -15,9 +20,26 @@ type LoginMail = {
 const emailPattern =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
+type LoginResponse = {
+  status?: boolean;
+  error?: string;
+  user?: {
+    id: string;
+    email?: string;
+    user_metadata?: { first_name?: string; last_name?: string };
+  };
+  session?: {
+    access_token: string;
+    refresh_token: string;
+    expires_at?: number;
+  };
+};
+
 const LoginPage = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [apiError, setApiError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -26,22 +48,32 @@ const LoginPage = () => {
 
   const onSubmit = async (data: LoginMail) => {
     setApiError(null);
-    const result = await postData<{ status?: boolean; error?: string }>(
-      "/api/login",
-      {
-        email: data.email,
+    setLoading(true);
+    try {
+      const result = await postData<LoginResponse>("/api/login", {
+        email: data.email.trim(),
         password: data.password,
-      },
-    );
-    if (result.status) {
-      await router.push("/products");
-      return;
+      });
+
+      if (result.status && result.user) {
+        dispatch(
+          setUserSession({
+            user: mapSupabaseUser(result.user),
+            session: mapSupabaseSession(result.session),
+          }),
+        );
+        await router.push("/products");
+        return;
+      }
+
+      setApiError(
+        typeof result.error === "string"
+          ? result.error
+          : "Đăng nhập thất bại. Kiểm tra email và mật khẩu.",
+      );
+    } finally {
+      setLoading(false);
     }
-    setApiError(
-      typeof result.error === "string"
-        ? result.error
-        : "Đăng nhập thất bại. Kiểm tra email và mật khẩu.",
-    );
   };
 
   return (
@@ -58,8 +90,8 @@ const LoginPage = () => {
           <div className="form-block">
             <h2 className="form-block__title">Đăng nhập</h2>
             <p className="form-block__description">
-              Đăng nhập bằng tài khoản Supabase Auth của bạn. Tạo tài khoản
-              trong Supabase (Authentication) hoặc qua trang đăng ký.
+              Đăng nhập tài khoản {SHOP_NAME}. Nếu mới đăng ký, kiểm tra email
+              xác nhận (Supabase) trước khi đăng nhập.
             </p>
 
             <form className="form" onSubmit={handleSubmit(onSubmit)}>
@@ -72,7 +104,7 @@ const LoginPage = () => {
                 <input
                   className="form__input"
                   placeholder="Email"
-                  type="text"
+                  type="email"
                   {...register("email", {
                     required: true,
                     pattern: emailPattern,
@@ -142,8 +174,9 @@ const LoginPage = () => {
               <button
                 type="submit"
                 className="btn btn--rounded btn--yellow btn-submit"
+                disabled={loading}
               >
-                Đăng nhập
+                {loading ? "Đang đăng nhập..." : "Đăng nhập"}
               </button>
 
               <p className="form__signup-link">

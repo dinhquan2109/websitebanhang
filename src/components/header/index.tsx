@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useOnClickOutside from "use-onclickoutside";
 
+import { SHOP_NAME } from "@/constants/shop";
 import type { RootState } from "@/store";
+import { clearUserSession } from "@/store/reducers/user";
 
 import Logo from "../../assets/icons/logo";
 
@@ -14,7 +16,9 @@ type HeaderType = {
 
 const Header = ({ isErrorPage }: HeaderType) => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const { cartItems } = useSelector((state: RootState) => state.cart);
+  const { user } = useSelector((state: RootState) => state.user);
   const arrayPaths = ["/"];
 
   const [onTop, setOnTop] = useState(
@@ -53,6 +57,12 @@ const Header = ({ isErrorPage }: HeaderType) => {
     setSearchOpen(false);
   };
 
+  const handleLogout = () => {
+    dispatch(clearUserSession());
+    closeMenu();
+    void router.push("/login");
+  };
+
   // on click outside
   useOnClickOutside(navRef, closeMenu);
   useOnClickOutside(searchRef, closeSearch);
@@ -63,7 +73,7 @@ const Header = ({ isErrorPage }: HeaderType) => {
         <Link href="/">
           <h1 className="site-logo">
             <Logo />
-            E-Shop
+            {SHOP_NAME}
           </h1>
         </Link>
         <nav
@@ -73,9 +83,15 @@ const Header = ({ isErrorPage }: HeaderType) => {
           <Link href="/products">Sản phẩm</Link>
           <a href="#">Cảm hứng</a>
           <a href="#">Không gian</a>
-          <button className="site-nav__btn">
-            <p>Tài khoản</p>
-          </button>
+          {user ? (
+            <button type="button" className="site-nav__btn" onClick={handleLogout}>
+              <p>Xin chào, {user.name}</p>
+            </button>
+          ) : (
+            <Link href="/login" className="site-nav__btn">
+              Đăng nhập
+            </Link>
+          )}
         </nav>
 
         <div className="site-header__actions">
@@ -107,8 +123,11 @@ const Header = ({ isErrorPage }: HeaderType) => {
               )}
             </button>
           </Link>
-          <Link href="/login" legacyBehavior>
-            <button className="site-header__btn-avatar">
+          <Link href={user ? "/products" : "/login"} legacyBehavior>
+            <button
+              className="site-header__btn-avatar"
+              title={user ? user.name : "Đăng nhập"}
+            >
               <i className="icon-avatar" />
             </button>
           </Link>

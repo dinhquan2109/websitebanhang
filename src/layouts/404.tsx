@@ -1,6 +1,8 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 
+import { SHOP_DEFAULT_TITLE } from "@/constants/shop";
+
 import Header from "@/components/header";
 
 type LayoutType = {
@@ -10,7 +12,7 @@ type LayoutType = {
 
 const ErrorPage = ({
   children,
-  title = "E-Shop — Thương mại điện tử",
+  title = SHOP_DEFAULT_TITLE,
 }: LayoutType) => {
   const router = useRouter();
   const pathname = router.pathname;

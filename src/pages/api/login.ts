@@ -34,7 +34,23 @@ export default async function handler(
   });
 
   if (error) {
-    return res.status(401).json({ status: false, error: error.message });
+    const msg = error.message.toLowerCase();
+    let friendly = error.message;
+    if (msg.includes("invalid login credentials")) {
+      friendly = "Email hoặc mật khẩu không đúng.";
+    } else if (msg.includes("email not confirmed")) {
+      friendly =
+        "Email chưa được xác nhận. Kiểm tra hộp thư (và thư rác) rồi bấm link xác nhận trong Supabase.";
+    }
+    return res.status(401).json({ status: false, error: friendly });
+  }
+
+  if (!data.session) {
+    return res.status(401).json({
+      status: false,
+      error:
+        "Đăng nhập chưa hoàn tất. Vui lòng xác nhận email hoặc tắt 'Confirm email' trong Supabase Dashboard → Authentication → Providers → Email.",
+    });
   }
 
   return res.status(200).json({

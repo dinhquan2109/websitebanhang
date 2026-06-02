@@ -2,69 +2,62 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import { remove } from "lodash";
 
-type ProductType = {
-  id: string;
-  name: string;
-  thumb: string;
-  price: string;
-  count: number;
-  color: string;
-  size: string;
-};
-
 type ToggleFavType = {
   id: string;
 };
 
+export type AuthUser = {
+  id: string;
+  email?: string;
+  name: string;
+};
+
+export type AuthSession = {
+  access_token: string;
+  refresh_token: string;
+  expires_at?: number;
+};
+
 interface UserSliceTypes {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  user: any;
+  user: AuthUser | null;
+  session: AuthSession | null;
   favProducts: string[];
 }
 
-const initialState = {
-  user: {
-    name: "Lucas Pulliese",
-  },
+const initialState: UserSliceTypes = {
+  user: null,
+  session: null,
   favProducts: [],
-} as UserSliceTypes;
+};
+
+type SetUserSessionPayload = {
+  user: AuthUser;
+  session: AuthSession | null;
+};
 
 const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
     toggleFavProduct(state, action: PayloadAction<ToggleFavType>) {
-      const index = state.favProducts.includes(action.payload.id);
-
-      if (!index) {
+      const exists = state.favProducts.includes(action.payload.id);
+      if (!exists) {
         state.favProducts.push(action.payload.id);
-
         return;
       }
-
       remove(state.favProducts, (id) => id === action.payload.id);
     },
-    setUserLogged(state, action: PayloadAction<ProductType>) {
-      const index = state.favProducts.includes(action.payload.id);
-
-      if (!index) {
-        state.favProducts.push(action.payload.id);
-
-        return {
-          ...state,
-          favProducts: state.favProducts,
-        };
-      }
-
-      remove(state.favProducts, (id) => id === action.payload.id);
-
-      return {
-        ...state,
-        favProducts: state.favProducts,
-      };
+    setUserSession(state, action: PayloadAction<SetUserSessionPayload>) {
+      state.user = action.payload.user;
+      state.session = action.payload.session;
+    },
+    clearUserSession(state) {
+      state.user = null;
+      state.session = null;
     },
   },
 });
 
-export const { toggleFavProduct, setUserLogged } = userSlice.actions;
+export const { toggleFavProduct, setUserSession, clearUserSession } =
+  userSlice.actions;
 export default userSlice.reducer;
