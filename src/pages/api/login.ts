@@ -53,9 +53,22 @@ export default async function handler(
     });
   }
 
+  const user = data.user;
   return res.status(200).json({
     status: true,
-    session: data.session,
-    user: data.user,
+    session: data.session
+      ? {
+          access_token: data.session.access_token,
+          refresh_token: data.session.refresh_token,
+          expires_at: data.session.expires_at,
+        }
+      : null,
+    user: user
+      ? {
+          id: user.id,
+          email: user.email,
+          user_metadata: user.user_metadata,
+        }
+      : null,
   });
 }

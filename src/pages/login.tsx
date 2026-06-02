@@ -5,11 +5,12 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 
 import { SHOP_NAME } from "@/constants/shop";
+import { getSupabaseBrowserClient } from "@/lib/supabase-browser";
 import { setUserSession } from "@/store/reducers/user";
 import { mapSupabaseSession, mapSupabaseUser } from "@/utils/auth";
+import { toAuthErrorMessage } from "@/utils/supabase-auth-errors";
 
 import Layout from "../layouts/Main";
-import { postData } from "../utils/services";
 
 type LoginMail = {
   email: string;
@@ -19,21 +20,6 @@ type LoginMail = {
 
 const emailPattern =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-type LoginResponse = {
-  status?: boolean;
-  error?: string;
-  user?: {
-    id: string;
-    email?: string;
-    user_metadata?: { first_name?: string; last_name?: string };
-  };
-  session?: {
-    access_token: string;
-    refresh_token: string;
-    expires_at?: number;
-  };
-};
 
 const LoginPage = () => {
   const router = useRouter();
@@ -49,28 +35,50 @@ const LoginPage = () => {
   const onSubmit = async (data: LoginMail) => {
     setApiError(null);
     setLoading(true);
+
     try {
-      const result = await postData<LoginResponse>("/api/login", {
+      const supabase = getSupabaseBrowserClient();
+      if (!supabase) {
+        setApiError(
+          "Chưa cấu hình Supabase trên website. Thêm NEXT_PUBLIC_SUPABASE_URL và NEXT_PUBLIC_SUPABASE_ANON_KEY trên Vercel rồi redeploy.",
+        );
+        return;
+      }
+
+      const { data: authData, error } = await supabase.auth.signInWithPassword({
         email: data.email.trim(),
         password: data.password,
       });
 
-      if (result.status && result.user) {
-        dispatch(
-          setUserSession({
-            user: mapSupabaseUser(result.user),
-            session: mapSupabaseSession(result.session),
-          }),
-        );
-        await router.push("/products");
+      if (error) {
+        setApiError(toAuthErrorMessage(error.message));
         return;
       }
 
-      setApiError(
-        typeof result.error === "string"
-          ? result.error
-          : "Đăng nhập thất bại. Kiểm tra email và mật khẩu.",
+      if (!authData.user) {
+        setApiError(
+          "Đăng nhập chưa hoàn tất. Kiểm tra email xác nhận trong Supabase hoặc tắt Confirm email.",
+        );
+        return;
+      }
+
+      dispatch(
+        setUserSession({
+          user: mapSupabaseUser({
+            id: authData.user.id,
+            email: authData.user.email,
+            user_metadata: authData.user.user_metadata as {
+              first_name?: string;
+              last_name?: string;
+            },
+          }),
+          session: mapSupabaseSession(authData.session),
+        }),
       );
+
+      await router.push("/products");
+    } catch {
+      setApiError("Không thể đăng nhập. Thử lại sau hoặc kiểm tra kết nối mạng.");
     } finally {
       setLoading(false);
     }
@@ -90,8 +98,8 @@ const LoginPage = () => {
           <div className="form-block">
             <h2 className="form-block__title">Đăng nhập</h2>
             <p className="form-block__description">
-              Đăng nhập tài khoản {SHOP_NAME}. Nếu mới đăng ký, kiểm tra email
-              xác nhận (Supabase) trước khi đăng nhập.
+              Đăng nhập tài khoản {SHOP_NAME}. Nếu vừa đăng ký mà không vào được,
+              hãy xác nhận email trong hộp thư trước.
             </p>
 
             <form className="form" onSubmit={handleSubmit(onSubmit)}>
@@ -105,6 +113,7 @@ const LoginPage = () => {
                   className="form__input"
                   placeholder="Email"
                   type="email"
+                  autoComplete="email"
                   {...register("email", {
                     required: true,
                     pattern: emailPattern,
@@ -129,6 +138,7 @@ const LoginPage = () => {
                   className="form__input"
                   type="password"
                   placeholder="Mật khẩu"
+                  autoComplete="current-password"
                   {...register("password", { required: true })}
                 />
                 {errors.password?.type === "required" && (
@@ -159,16 +169,6 @@ const LoginPage = () => {
                 >
                   Quên mật khẩu?
                 </Link>
-              </div>
-
-              <div className="form__btns">
-                <button type="button" className="btn-social fb-btn">
-                  <i className="icon-facebook" />
-                  Facebook
-                </button>
-                <button type="button" className="btn-social google-btn">
-                  <img src="/images/icons/gmail.svg" alt="Gmail" /> Gmail
-                </button>
               </div>
 
               <button

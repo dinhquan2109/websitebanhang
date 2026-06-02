@@ -10,6 +10,8 @@ import { Poppins } from "next/font/google";
 import Router from "next/router";
 import React, { Fragment } from "react";
 
+import AuthSync from "@/components/auth-sync";
+
 import { wrapper } from "../store";
 import * as gtag from "../utils/gtag";
 
@@ -34,6 +36,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
         --main-font: ${poppins.style.fontFamily};
       }
     `}</style>
+    <AuthSync />
     <Component {...pageProps} />
   </Fragment>
 );

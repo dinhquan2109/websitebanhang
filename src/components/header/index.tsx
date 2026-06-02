@@ -6,6 +6,7 @@ import useOnClickOutside from "use-onclickoutside";
 
 import { SHOP_NAME } from "@/constants/shop";
 import type { RootState } from "@/store";
+import { getSupabaseBrowserClient } from "@/lib/supabase-browser";
 import { clearUserSession } from "@/store/reducers/user";
 
 import Logo from "../../assets/icons/logo";
@@ -57,7 +58,11 @@ const Header = ({ isErrorPage }: HeaderType) => {
     setSearchOpen(false);
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    const supabase = getSupabaseBrowserClient();
+    if (supabase) {
+      await supabase.auth.signOut();
+    }
     dispatch(clearUserSession());
     closeMenu();
     void router.push("/login");

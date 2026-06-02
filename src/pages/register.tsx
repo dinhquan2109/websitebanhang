@@ -5,11 +5,12 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 
 import { SHOP_NAME } from "@/constants/shop";
+import { getSupabaseBrowserClient } from "@/lib/supabase-browser";
 import { setUserSession } from "@/store/reducers/user";
 import { mapSupabaseSession, mapSupabaseUser } from "@/utils/auth";
+import { toAuthErrorMessage } from "@/utils/supabase-auth-errors";
 
 import Layout from "../layouts/Main";
-import { postData } from "../utils/services";
 
 type RegisterForm = {
   firstName: string;
@@ -22,22 +23,6 @@ type RegisterForm = {
 const emailPattern =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-type RegisterResponse = {
-  status?: boolean;
-  error?: string;
-  needsEmailConfirmation?: boolean;
-  user?: {
-    id: string;
-    email?: string;
-    user_metadata?: { first_name?: string; last_name?: string };
-  };
-  session?: {
-    access_token: string;
-    refresh_token: string;
-    expires_at?: number;
-  };
-};
-
 const RegisterPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -48,39 +33,64 @@ const RegisterPage = () => {
   } = useForm<RegisterForm>();
   const [apiError, setApiError] = useState<string | null>(null);
   const [apiSuccess, setApiSuccess] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = async (data: RegisterForm) => {
     setApiError(null);
     setApiSuccess(null);
-    const result = await postData<RegisterResponse>("/api/register", {
-      email: data.email.trim(),
-      password: data.password,
-      firstName: data.firstName,
-      lastName: data.lastName,
-    });
-    if (result.status) {
-      if (result.user && result.session) {
+    setLoading(true);
+
+    try {
+      const supabase = getSupabaseBrowserClient();
+      if (!supabase) {
+        setApiError(
+          "Chưa cấu hình Supabase. Thêm NEXT_PUBLIC_SUPABASE_URL và NEXT_PUBLIC_SUPABASE_ANON_KEY trên Vercel.",
+        );
+        return;
+      }
+
+      const { data: authData, error } = await supabase.auth.signUp({
+        email: data.email.trim(),
+        password: data.password,
+        options: {
+          data: {
+            first_name: data.firstName,
+            last_name: data.lastName,
+          },
+        },
+      });
+
+      if (error) {
+        setApiError(toAuthErrorMessage(error.message));
+        return;
+      }
+
+      if (authData.session && authData.user) {
         dispatch(
           setUserSession({
-            user: mapSupabaseUser(result.user),
-            session: mapSupabaseSession(result.session),
+            user: mapSupabaseUser({
+              id: authData.user.id,
+              email: authData.user.email,
+              user_metadata: authData.user.user_metadata as {
+                first_name?: string;
+                last_name?: string;
+              },
+            }),
+            session: mapSupabaseSession(authData.session),
           }),
         );
         await router.push("/products");
         return;
       }
+
       setApiSuccess(
-        result.needsEmailConfirmation
-          ? "Đã gửi email xác nhận. Vui lòng kiểm tra hộp thư rồi đăng nhập."
-          : `Đăng ký thành công tại ${SHOP_NAME}. Bạn có thể đăng nhập.`,
+        "Đã gửi email xác nhận (nếu Supabase bật Confirm email). Kiểm tra hộp thư rồi đăng nhập.",
       );
-      return;
+    } catch {
+      setApiError("Đăng ký thất bại. Vui lòng thử lại.");
+    } finally {
+      setLoading(false);
     }
-    setApiError(
-      typeof result.error === "string"
-        ? result.error
-        : "Đăng ký thất bại. Vui lòng thử lại.",
-    );
   };
 
   return (
@@ -99,8 +109,7 @@ const RegisterPage = () => {
               Tạo tài khoản và khám phá ưu đãi
             </h2>
             <p className="form-block__description">
-              Đăng ký qua Supabase Auth. Mật khẩu tối thiểu 6 ký tự theo cấu
-              hình mặc định của Supabase.
+              Đăng ký tài khoản {SHOP_NAME}. Mật khẩu tối thiểu 6 ký tự.
             </p>
 
             <form className="form" onSubmit={handleSubmit(onSubmit)}>
@@ -146,7 +155,8 @@ const RegisterPage = () => {
                 <input
                   className="form__input"
                   placeholder="Email"
-                  type="text"
+                  type="email"
+                  autoComplete="email"
                   {...register("email", {
                     required: true,
                     pattern: emailPattern,
@@ -169,6 +179,7 @@ const RegisterPage = () => {
                   className="form__input"
                   type="password"
                   placeholder="Mật khẩu"
+                  autoComplete="new-password"
                   {...register("password", { required: true, minLength: 6 })}
                 />
                 {errors.password?.type === "required" && (
@@ -208,8 +219,9 @@ const RegisterPage = () => {
               <button
                 type="submit"
                 className="btn btn--rounded btn--yellow btn-submit"
+                disabled={loading}
               >
-                Đăng ký
+                {loading ? "Đang đăng ký..." : "Đăng ký"}
               </button>
 
               <p className="form__signup-link">
