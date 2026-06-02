@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import CheckoutItems from "@/components/checkout/items";
 import CheckoutStatus from "@/components/checkout-status";
 import type { RootState } from "@/store";
+import { formatVnd } from "@/utils/currency";
 
 import Layout from "../../layouts/Main";
 
@@ -148,19 +149,19 @@ const CheckoutPage = () => {
                 <ul className="round-options round-options--two">
                   <li className="round-item round-item--bg">
                     <img src="/images/logos/inpost.svg" alt="InPost" />
-                    <p>$20.00</p>
+                    <p>{formatVnd(500000)}</p>
                   </li>
                   <li className="round-item round-item--bg">
                     <img src="/images/logos/dpd.svg" alt="DPD" />
-                    <p>$12.00</p>
+                    <p>{formatVnd(300000)}</p>
                   </li>
                   <li className="round-item round-item--bg">
                     <img src="/images/logos/dhl.svg" alt="DHL" />
-                    <p>$15.00</p>
+                    <p>{formatVnd(375000)}</p>
                   </li>
                   <li className="round-item round-item--bg">
                     <img src="/images/logos/maestro.png" alt="Giao hàng" />
-                    <p>$10.00</p>
+                    <p>{formatVnd(250000)}</p>
                   </li>
                 </ul>
               </div>
@@ -173,7 +174,7 @@ const CheckoutPage = () => {
 
                 <div className="checkout-total">
                   <p>Tổng cộng</p>
-                  <h3>${priceTotal}</h3>
+                  <h3>{formatVnd(priceTotal)}</h3>
                 </div>
               </div>
             </div>

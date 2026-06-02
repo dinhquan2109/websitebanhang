@@ -49,7 +49,7 @@ const PageIntro = () => {
               <i className="icon-shipping" />
               <div className="data-item__content">
                 <h4>Miễn phí vận chuyển</h4>
-                <p>Với đơn từ $199</p>
+                <p>Với đơn từ 5.000.000₫</p>
               </div>
             </li>
 

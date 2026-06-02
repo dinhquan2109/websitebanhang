@@ -6,6 +6,7 @@ import type { RootState } from "@/store";
 import { addProduct } from "@/store/reducers/cart";
 import { toggleFavProduct } from "@/store/reducers/user";
 import type { ProductStoreType, ProductType } from "@/types";
+import { formatVnd } from "@/utils/currency";
 
 import productsColors from "../../../utils/data/products-colors";
 import productsSizes from "../../../utils/data/products-sizes";
@@ -70,8 +71,10 @@ const Content = ({ product }: ProductContent) => {
         <h2 className="product__name">{product.name}</h2>
 
         <div className="product__prices">
-          <h4>${product.currentPrice}</h4>
-          {product.discount && <span>${product.price}</span>}
+          <h4>{formatVnd(product.currentPrice)}</h4>
+          {product.discount && (
+            <span>{formatVnd(Number(product.price))}</span>
+          )}
         </div>
       </div>
 

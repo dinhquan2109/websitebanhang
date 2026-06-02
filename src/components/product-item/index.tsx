@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "@/store";
 import { toggleFavProduct } from "@/store/reducers/user";
 import type { ProductTypeList } from "@/types";
+import { formatVnd } from "@/utils/currency";
 
 const ProductItem = ({
   discount,
@@ -48,9 +49,9 @@ const ProductItem = ({
         <div
           className={`product__price ${discount ? "product__price--discount" : ""}`}
         >
-          <h4>${currentPrice}</h4>
+          <h4>{formatVnd(Number(currentPrice ?? 0))}</h4>
 
-          {discount && <span>${price}</span>}
+          {discount && <span>{formatVnd(Number(price))}</span>}
         </div>
       </div>
     </div>

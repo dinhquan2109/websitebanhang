@@ -1,5 +1,7 @@
 import { useSelector } from "react-redux";
 
+import { formatVnd } from "@/utils/currency";
+
 const CheckoutItems = () => {
   const { cartItems } = useSelector((state) => state.cart);
 
@@ -17,7 +19,7 @@ const CheckoutItems = () => {
               <span>#{item.id}</span>
             </div>
           </div>
-          <h3>${item.price}</h3>
+          <h3>{formatVnd(item.price)}</h3>
         </li>
       ))}
     </ul>

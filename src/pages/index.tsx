@@ -29,7 +29,7 @@ const IndexPage = () => {
             className="featured-item featured-item-small-first"
           >
             <div className="featured-item__content">
-              <h3>Áo thun cơ bản $29,99</h3>
+              <h3>Áo thun cơ bản 750.000₫</h3>
               <a href="#" className="btn btn--rounded">
                 Chi tiết
               </a>
@@ -62,8 +62,8 @@ const IndexPage = () => {
               <div className="data-item__content">
                 <h4>Miễn phí vận chuyển</h4>
                 <p>
-                  Đơn từ $199 trở lên được miễn phí giao hàng qua bưu điện nội
-                  địa.
+                  Đơn từ 5.000.000₫ trở lên được miễn phí giao hàng qua bưu điện
+                  nội địa.
                 </p>
               </div>
             </li>

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 
 import type { RootState } from "@/store";
+import { formatVnd } from "@/utils/currency";
 
 import CheckoutStatus from "../checkout-status";
 import Item from "./item";
@@ -70,7 +71,7 @@ const ShoppingCart = () => {
 
           <div className="cart-actions__items-wrapper">
             <p className="cart-actions__total">
-              Tổng cộng <strong>${priceTotal().toFixed(2)}</strong>
+              Tổng cộng <strong>{formatVnd(priceTotal())}</strong>
             </p>
             <Link
               href="/cart/checkout"

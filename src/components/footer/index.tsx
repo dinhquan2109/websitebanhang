@@ -1,9 +1,4 @@
-import {
-  SHOP_NAME,
-  SHOP_SHORT,
-  SHOP_SUPPORT_EMAIL,
-  SHOP_TAGLINE,
-} from "@/constants/shop";
+import { SHOP_NAME, SHOP_SUPPORT_EMAIL } from "@/constants/shop";
 
 import Logo from "../../assets/icons/logo";
 
@@ -16,10 +11,6 @@ const Footer = () => {
             <h6>
               <Logo /> {SHOP_NAME}
             </h6>
-            <p>
-              {SHOP_NAME} — {SHOP_TAGLINE}. Thương hiệu demo của Trần Đình Quân,
-              xây dựng bằng Next.js và Supabase.
-            </p>
             <ul className="site-footer__social-networks">
               <li>
                 <a href="#">
@@ -101,9 +92,7 @@ const Footer = () => {
 
       <div className="site-footer__bottom">
         <div className="container">
-          <p>
-            © 2026 {SHOP_NAME} ({SHOP_SHORT}). Mọi quyền được bảo lưu.
-          </p>
+          <p>© 2026 Dinhquan</p>
         </div>
       </div>
     </footer>
