@@ -1,11 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-// fake data
-import products from "../../utils/data/products";
+import { fetchProductsFromDb, getMockProducts } from "@/lib/products-db";
 
-export default (_req: NextApiRequest, res: NextApiResponse) => {
-  // fake loading time
-  setTimeout(() => {
-    res.status(200).json(products);
-  }, 800);
+export default async (_req: NextApiRequest, res: NextApiResponse) => {
+  const fromDb = await fetchProductsFromDb();
+  const products = fromDb ?? getMockProducts();
+
+  res.status(200).json(products);
 };

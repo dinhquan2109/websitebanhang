@@ -86,8 +86,8 @@ const Header = ({ isErrorPage }: HeaderType) => {
           className={`site-nav ${menuOpen ? "site-nav--open" : ""}`}
         >
           <Link href="/products">Sản phẩm</Link>
-          <a href="#">Cảm hứng</a>
-          <a href="#">Không gian</a>
+          {user && <Link href="/orders">Đơn hàng</Link>}
+          {user?.role === "admin" && <Link href="/admin">Quản trị</Link>}
           {user ? (
             <button type="button" className="site-nav__btn" onClick={handleLogout}>
               <p>Xin chào, {user.name}</p>

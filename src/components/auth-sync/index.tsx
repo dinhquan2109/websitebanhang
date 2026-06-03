@@ -17,19 +17,32 @@ const AuthSync = () => {
       return;
     }
 
+    const loadProfileRole = async (userId: string) => {
+      const { data } = await supabase
+        .from("profiles")
+        .select("role")
+        .eq("id", userId)
+        .maybeSingle();
+      return (data?.role as "user" | "admin" | undefined) ?? "user";
+    };
+
     const sync = async () => {
       const { data } = await supabase.auth.getSession();
       if (data.session?.user) {
+        const role = await loadProfileRole(data.session.user.id);
         dispatch(
           setUserSession({
-            user: mapSupabaseUser({
-              id: data.session.user.id,
-              email: data.session.user.email,
-              user_metadata: data.session.user.user_metadata as {
-                first_name?: string;
-                last_name?: string;
-              },
-            }),
+            user: {
+              ...mapSupabaseUser({
+                id: data.session.user.id,
+                email: data.session.user.email,
+                user_metadata: data.session.user.user_metadata as {
+                  first_name?: string;
+                  last_name?: string;
+                },
+              }),
+              role,
+            },
             session: mapSupabaseSession(data.session),
           }),
         );
@@ -43,21 +56,27 @@ const AuthSync = () => {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (session?.user) {
-        dispatch(
-          setUserSession({
-            user: mapSupabaseUser({
-              id: session.user.id,
-              email: session.user.email,
-              user_metadata: session.user.user_metadata as {
-                first_name?: string;
-                last_name?: string;
+      void (async () => {
+        if (session?.user) {
+          const role = await loadProfileRole(session.user.id);
+          dispatch(
+            setUserSession({
+              user: {
+                ...mapSupabaseUser({
+                  id: session.user.id,
+                  email: session.user.email,
+                  user_metadata: session.user.user_metadata as {
+                    first_name?: string;
+                    last_name?: string;
+                  },
+                }),
+                role,
               },
+              session: mapSupabaseSession(session),
             }),
-            session: mapSupabaseSession(session),
-          }),
-        );
-      }
+          );
+        }
+      })();
     });
 
     return () => subscription.unsubscribe();
